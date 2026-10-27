@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10110e">
+  <meta name="description" content="Alexis Bolanio — IT Specialist, systems support professional, and full-stack developer. A curated archive of experience, projects, and technical work.">
+  <title>Alexis Bolanio — Personal Archive</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --paper: #10110e;
+      --paper-raised: #171813;
+      --ink: #f0f0e8;
+      --muted: #a4a69a;
+      --faint: #85877c;
+      --line: #34362d;
+      --accent: #c4f05b;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --sans: Inter, "Segoe UI", Arial, sans-serif;
+      --page-width: 1120px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    body::before {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      background-image: linear-gradient(rgba(240, 240, 232, .025) 1px, transparent 1px), linear-gradient(90deg, rgba(240, 240, 232, .025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      content: "";
+      mask-image: linear-gradient(to bottom, #000, transparent 85%);
+      pointer-events: none;
+    }
+    ::selection { background: var(--accent); color: var(--paper); }
+    a { color: inherit; }
+    button, summary { font: inherit; }
+    button:focus-visible, a:focus-visible, summary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 5px;
+    }
+    a:hover { color: var(--accent); }
+    .skip-link {
+      position: fixed;
+      z-index: 20;
+      top: 1rem;
+      left: 1rem;
+      padding: .8rem 1rem;
+      transform: translateY(-160%);
+      background: var(--accent);
+      color: var(--paper);
+    }
+    .skip-link:focus { transform: translateY(0); }
+    .progress-track {
+      position: fixed;
+      z-index: 30;
+      inset: 0 0 auto;
+      height: 3px;
+      background: rgba(240, 240, 232, .08);
+    }
+    .progress-bar {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: var(--accent);
+      transform-origin: left;
+    }
+    .page-width { width: min(var(--page-width), calc(100% - 3rem)); margin-inline: auto; }
+    .mono, .eyebrow, .record-meta, .index-link, .section-number, .cover-stamp, .tag {
+      font-family: var(--mono);
+    }
+    .eyebrow, .record-meta, .section-number, .cover-stamp {
+      color: var(--muted);
+      font-size: .72rem;
+      letter-spacing: .12em;
+      line-height: 1.6;
+      text-transform: uppercase;
+    }
+    .cover {
+      display: flex;
+      min-height: min(840px, 100svh);
+      flex-direction: column;
+      justify-content: center;
+      padding-block: 5rem 4rem;
+    }
+    .cover-topline, .cover-bottomline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--line);
+      padding-block: 1rem;
+    }
+    .cover-topline { border-top: 1px solid var(--line); }
+    .cover-stamp { color: var(--accent); }
+    .cover-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(190px, 250px);
+      align-items: end;
+      gap: 3rem;
+      padding-block: clamp(4rem, 11vw, 9rem) 4rem;
+    }
+    .archive-id {
+      display: inline-flex;
+      align-items: center;
+      gap: .75rem;
+      margin-bottom: 1.7rem;
+      color: var(--accent);
+      font: .78rem var(--mono);
+      letter-spacing: .12em;
+    }
+    .archive-id::before { width: 1.8rem; height: 1px; background: var(--accent); content: ""; }
+    h1 {
+      max-width: 940px;
+      margin: 0;
+      font-size: clamp(3.2rem, 10.6vw, 8.7rem);
+      font-weight: 650;
+      letter-spacing: -.085em;
+      line-height: .87;
+      overflow-wrap: anywhere;
+    }
+    .cover-intro {
+      max-width: 590px;
+      margin: 2rem 0 0;
+      color: #c6c7bc;
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+      line-height: 1.65;
+    }
+    .cover-role {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      margin-top: 2rem;
+      color: var(--accent);
+      font: .72rem var(--mono);
+      letter-spacing: .08em;
+      line-height: 1.7;
+    }
+    .status-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--accent); }
+    .cover-facts { margin: 0; border-top: 1px solid var(--line); }
+    .cover-facts div { padding: .9rem 0; border-bottom: 1px solid var(--line); }
+    .cover-facts dt { margin-bottom: .35rem; color: var(--faint); font: .65rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .cover-facts dd { margin: 0; color: #dedfd4; font-size: .85rem; line-height: 1.5; }
+    .cover-index {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+    }
+    .cover-index a {
+      display: flex;
+      gap: .75rem;
+      padding: .9rem 1rem .9rem 0;
+      color: var(--muted);
+      font: .72rem var(--mono);
+      text-decoration: none;
+    }
+    .cover-index a span { color: var(--accent); }
+    .cover-bottomline { border-top: 1px solid var(--line); border-bottom: 0; margin-top: 1.5rem; }
+    .cover-bottomline span:last-child { text-align: right; }
+    .archive-index {
+      position: fixed;
+      z-index: 10;
+      top: 50%;
+      right: max(1.25rem, calc((100vw - var(--page-width)) / 2 - 3.5rem));
+      display: grid;
+      gap: .5rem;
+      transform: translateY(-50%);
+    }
+    .index-link {
+      display: flex;
+      width: 2rem;
+      height: 2rem;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      color: var(--faint);
+      font-size: .64rem;
+      text-decoration: none;
+      transition: color .2s ease, border-color .2s ease;
+    }
+    .index-link:hover, .index-link[aria-current="location"] { border-color: var(--line); color: var(--accent); }
+    main { border-top: 1px solid var(--line); }
+    .archive-section { padding-block: clamp(4.5rem, 9vw, 8rem); border-bottom: 1px solid var(--line); }
+    .section-heading {
+      display: grid;
+      grid-template-columns: minmax(160px, .7fr) minmax(0, 1.3fr);
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+    .section-number { color: var(--accent); }
+    h2 {
+      margin: 0;
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 560;
+      letter-spacing: -.065em;
+      line-height: 1.03;
+    }
+    .section-intro { max-width: 530px; margin: 1rem 0 0; color: var(--muted); font-size: .95rem; line-height: 1.8; }
+    .record-list { border-top: 1px solid var(--line); }
+    .career-record {
+      display: grid;
+      grid-template-columns: minmax(130px, .45fr) minmax(0, 1.55fr) minmax(120px, .55fr);
+      gap: 1.5rem;
+      padding: 1.8rem 0;
+      border-bottom: 1px solid var(--line);
+      transition: padding .2s ease, background .2s ease;
+    }
+    .career-record:hover { padding-inline: 1rem; background: rgba(255,255,255,.018); }
+    .career-record h3, .education-record h3 { margin: 0; font-size: 1.12rem; font-weight: 560; letter-spacing: -.02em; }
+    .career-record p, .education-record p { margin: .55rem 0 0; color: var(--muted); font-size: .9rem; line-height: 1.75; }
+    .career-record .record-meta:last-child { text-align: right; }
+    .current-label { display: inline-block; margin-bottom: .65rem; color: var(--accent); font: .65rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+    .case-file {
+      margin-bottom: 1rem;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.012);
+      transition: border-color .2s ease, background .2s ease;
+    }
+    .case-file:hover, .case-file[open] { border-color: #5b5e4d; background: rgba(255,255,255,.025); }
+    .case-file summary {
+      display: grid;
+      grid-template-columns: 90px minmax(0, 1fr) auto;
+      align-items: start;
+      gap: 1.5rem;
+      padding: clamp(1.2rem, 3.5vw, 2.2rem);
+      cursor: pointer;
+      list-style: none;
+    }
+    .case-file summary::-webkit-details-marker { display: none; }
+    .case-file summary::after { color: var(--accent); content: "+"; font: 1.3rem var(--mono); }
+    .case-file[open] summary::after { content: "−"; }
+    .case-no { color: var(--accent); font: .7rem var(--mono); letter-spacing: .08em; }
+    .case-title { margin: 0; font-size: clamp(1.3rem, 3vw, 2.25rem); font-weight: 560; letter-spacing: -.045em; }
+    .case-subtitle { margin: .6rem 0 0; color: var(--muted); font-size: .88rem; line-height: 1.7; }
+    .case-detail {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(170px, .45fr);
+      gap: 2rem;
+      padding: 0 clamp(1.2rem, 3.5vw, 2.2rem) 2rem calc(clamp(1.2rem, 3.5vw, 2.2rem) + 90px + 1.5rem);
+    }
+    .case-detail p { margin: 0; color: #c5c6bb; font-size: .92rem; line-height: 1.85; }
+    .case-detail .record-meta { color: var(--faint); line-height: 1.9; }
+    .case-file.primary { border-color: #62664e; }
+    .case-file.primary .case-title { font-size: clamp(1.7rem, 4vw, 3rem); }
+    .case-file.primary .case-no { color: var(--accent); }
+    .tag-list { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.1rem; }
+    .tag { padding: .35rem .55rem; border: 1px solid var(--line); color: #c7c9bd; font-size: .67rem; }
+    .skill-index { border-top: 1px solid var(--line); }
+    .skill-row {
+      display: grid;
+      grid-template-columns: minmax(190px, .7fr) minmax(0, 1.3fr);
+      gap: 2rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .skill-row h3 { margin: 0; color: var(--accent); font: .75rem var(--mono); letter-spacing: .08em; line-height: 1.6; text-transform: uppercase; }
+    .skill-row p { margin: 0; color: #d3d4c9; font-size: .94rem; line-height: 1.9; }
+    .vault-empty { padding: 2.5rem; border: 1px dashed #4a4c40; color: var(--muted); }
+    .vault-empty strong { display: block; margin-bottom: .5rem; color: var(--ink); font-size: 1rem; font-weight: 550; }
+    .vault-empty p { margin: 0; font-size: .88rem; line-height: 1.7; }
+    .credential-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .credential-entry { padding: 1.5rem; border: 1px solid var(--line); }
+    .credential-entry h3 { margin: .7rem 0; font-size: 1.1rem; font-weight: 550; }
+    .credential-entry p { margin: .4rem 0; color: var(--muted); font-size: .86rem; line-height: 1.7; }
+    .credential-preview { display: block; width: 100%; height: 220px; margin-top: 1rem; border: 1px solid var(--line); background: #fff; object-fit: contain; }
+    .credential-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.3rem; }
+    .text-button {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--accent);
+      cursor: pointer;
+      font: .75rem var(--mono);
+      text-decoration: underline;
+      text-underline-offset: .25em;
+    }
+    .text-button:hover { color: var(--ink); }
+    .education-record {
+      display: grid;
+      grid-template-columns: minmax(150px, .5fr) minmax(0, 1.5fr) auto;
+      gap: 1.5rem;
+      align-items: center;
+      padding: 2rem 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .honor-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .65rem .8rem;
+      border: 1px solid rgba(196,240,91,.38);
+      color: var(--accent);
+      font: .7rem var(--mono);
+      white-space: nowrap;
+    }
+    .closing-record { padding-block: clamp(5rem, 12vw, 10rem); }
+    .closing-record h2 { max-width: 850px; font-size: clamp(2.7rem, 8vw, 7rem); }
+    .closing-bottom {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, .6fr);
+      gap: 3rem;
+      align-items: end;
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .closing-email { color: var(--accent); font-size: clamp(1rem, 2.5vw, 1.4rem); text-decoration-thickness: 1px; text-underline-offset: .3em; overflow-wrap: anywhere; }
+    .closing-location { margin: 1rem 0 0; color: var(--muted); font: .75rem var(--mono); }
+    .closing-note { max-width: 360px; margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.8; }
+    .site-footer { display: flex; justify-content: space-between; gap: 1rem; padding-block: 1.2rem; border-top: 1px solid var(--line); color: var(--faint); font: .68rem var(--mono); }
+    .back-to-top { color: var(--muted); text-decoration: none; }
+    dialog {
+      width: min(900px, calc(100% - 2rem));
+      max-width: none;
+      max-height: min(90vh, 900px);
+      padding: 0;
+      border: 1px solid #55584a;
+      background: var(--paper-raised);
+      color: var(--ink);
+    }
+    dialog::backdrop { background: rgba(0,0,0,.78); backdrop-filter: blur(4px); }
+    .dialog-header { display: flex; justify-content: space-between; gap: 1rem; align-items: start; padding: 1.1rem 1.25rem; border-bottom: 1px solid var(--line); }
+    .dialog-header h2 { font-size: 1.15rem; letter-spacing: -.02em; }
+    .dialog-close { border: 1px solid var(--line); padding: .45rem .7rem; background: transparent; color: var(--ink); cursor: pointer; }
+    .dialog-preview { display: grid; min-height: 250px; max-height: calc(90vh - 100px); place-items: center; overflow: auto; }
+    .dialog-preview img { display: block; max-width: 100%; max-height: calc(90vh - 100px); object-fit: contain; }
+    .dialog-preview iframe { width: 100%; height: min(75vh, 760px); border: 0; background: #fff; }
+    .has-js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+    .has-js .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1050px) {
+      .archive-index { display: none; }
+    }
+    @media (max-width: 700px) {
+      .page-width { width: min(100% - 2rem, var(--page-width)); }
+      .cover { min-height: auto; padding-block: 3.5rem 2.5rem; }
+      .cover-body { grid-template-columns: 1fr; gap: 2.5rem; padding-block: 4.5rem 3rem; }
+      .cover-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1rem; }
+      .cover-facts div { min-width: 0; }
+      .cover-index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section-heading { grid-template-columns: 1fr; gap: 1rem; margin-bottom: 2.5rem; }
+      .career-record { grid-template-columns: 1fr auto; gap: .75rem 1rem; }
+      .career-record > :nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+      .career-record .record-meta:last-child { grid-column: 2; grid-row: 1; }
+      .case-file summary { grid-template-columns: 52px minmax(0, 1fr) auto; gap: .8rem; }
+      .case-detail { grid-template-columns: 1fr; gap: 1rem; padding-left: 1.2rem; }
+      .skill-row { grid-template-columns: 1fr; gap: .7rem; }
+      .credential-list { grid-template-columns: 1fr; }
+      .education-record { grid-template-columns: 1fr; gap: .8rem; }
+      .honor-mark { justify-self: start; }
+      .closing-bottom { grid-template-columns: 1fr; gap: 2rem; }
+      .cover-topline, .cover-bottomline { font-size: .64rem; }
+    }
+    @media (max-width: 390px) {
+      .cover-topline, .cover-bottomline { align-items: flex-start; }
+      .cover-topline > :last-child, .cover-bottomline > :last-child { text-align: right; }
+      .case-file summary { grid-template-columns: 1fr auto; }
+      .case-no { grid-column: 1 / -1; }
+      .case-file summary::after { grid-column: 2; grid-row: 1; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .has-js .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <div class="progress-track" aria-hidden="true"><span class="progress-bar" id="scrollProgress"></span></div>
+  <nav class="archive-index" aria-label="Archive section index">
+    <a class="index-link" href="#career" aria-label="01 Career records" title="Career records">01</a>
+    <a class="index-link" href="#projects" aria-label="02 Selected records" title="Selected records">02</a>
+    <a class="index-link" href="#skills" aria-label="03 Technical index" title="Technical index">03</a>
+    <a class="index-link" href="#credentials" aria-label="04 Credentials vault" title="Credentials vault">04</a>
+    <a class="index-link" href="#education" aria-label="05 Academic record" title="Academic record">05</a>
+    <a class="index-link" href="#contact" aria-label="06 Closing record" title="Closing record">06</a>
+  </nav>
+
+  <header id="home" class="page-width cover">
+    <div class="cover-topline eyebrow">
+      <span class="cover-stamp">Personal Archive / 2026</span>
+      <span>Professional record · 001</span>
+    </div>
+    <div class="cover-body">
+      <div>
+        <h1>ALEXIS<br>BOLANIO</h1>
+        <p class="cover-intro">I build systems, untangle workflows, and turn data into useful tools.</p>
+        <p class="cover-role"><span class="status-dot" aria-hidden="true"></span>IT SPECIALIST / FULL-STACK &amp; SYSTEMS SUPPORT</p>
+      </div>
+      <dl class="cover-facts">
+        <div><dt>Location</dt><dd>Bocaue, Bulacan</dd></div>
+        <div><dt>Education</dt><dd>BS Information Technology / Cum Laude</dd></div>
+        <div><dt>Availability</dt><dd>Open to opportunities</dd></div>
+      </dl>
+    </div>
+    <nav aria-label="Explore archive sections">
+      <p class="eyebrow">Record index <span aria-hidden="true">/</span> Select a section</p>
+      <div class="cover-index">
+        <a href="#career"><span>01</span> Career records</a>
+        <a href="#projects"><span>02</span> Selected records</a>
+        <a href="#skills"><span>03</span> Technical index</a>
+        <a href="#credentials"><span>04</span> Credentials vault</a>
+        <a href="#education"><span>05</span> Academic record</a>
+        <a href="#contact"><span>06</span> Closing record</a>
+      </div>
+    </nav>
+    <div class="cover-bottomline eyebrow">
+      <span>Archive status: open</span>
+      <span>Scroll to continue ↓</span>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="archive-section" id="career" aria-labelledby="career-title">
+      <div class="page-width">
+        <div class="section-heading reveal">
+          <p class="section-number">01 / Career records</p>
+          <div>
+            <h2 id="career-title">A timeline of systems work.</h2>
+            <p class="section-intro">Selected roles across systems support, workflow digitization, and data architecture.</p>
+          </div>
+        </div>
+        <div class="record-list">
+          <article class="career-record reveal">
+            <p class="record-meta">Record 01</p>
+            <div>
+              <span class="current-label">Current role</span>
+              <h3>IT Specialist / Full-Stack & System Support</h3>
+              <p>Riverside Pawnshop Inc. · Supporting business systems and IT operations through full-stack development and technical troubleshooting.</p>
+            </div>
+            <p class="record-meta">Present</p>
+          </article>
+          <article class="career-record reveal">
+            <p class="record-meta">Record 02</p>
+            <div>
+              <h3>Software Solution Officer Intern</h3>
+              <p>Matimco · Built an ICT inventory app with AppSheet, migrated spreadsheet-based workflows, validated data, and prepared technical documentation.</p>
+            </div>
+            <p class="record-meta">Jan–Apr 2026</p>
+          </article>
+          <article class="career-record reveal">
+            <p class="record-meta">Record 03</p>
+            <div>
+              <h3>Capstone Leader &amp; Lead Data Architect</h3>
+              <p>TILEFIT · Contributed to full-stack development and data architecture, including requirements analysis, database modeling, and an AR tile-visualization feature.</p>
+            </div>
+            <p class="record-meta">Mar–Oct 2025</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="archive-section" id="projects" aria-labelledby="projects-title">
+      <div class="page-width">
+        <div class="section-heading reveal">
+          <p class="section-number">02 / Selected records</p>
+          <div>
+            <h2 id="projects-title">Project case files.</h2>
+            <p class="section-intro">Open a record for its working notes. No project links or screenshots are included unless they are available and verified.</p>
+          </div>
+        </div>
+        <details class="case-file primary reveal" open>
+          <summary>
+            <span class="case-no">CASE 01</span>
+            <div>
+              <h3 class="case-title">Helpdesk Ticketing System</h3>
+              <span class="case-subtitle">A support request and issue-tracking system used across three companies.</span>
+              <span class="tag-list" aria-label="Technologies"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">MVC architecture</span></span>
+            </div>
+          </summary>
+          <div class="case-detail">
+            <p>Built with PHP and MySQL using an MVC architecture to organize support requests and issue tracking. The system is used across three companies.</p>
+            <p class="record-meta">System / Practical deployment<br>PHP · MySQL · MVC</p>
+          </div>
+        </details>
+        <details class="case-file reveal">
+          <summary>
+            <span class="case-no">CASE 02</span>
+            <div>
+              <h3 class="case-title">ICT Inventory System</h3>
+              <span class="case-subtitle">Internship project focused on digitizing inventory workflows.</span>
+              <span class="tag-list" aria-label="Tools"><span class="tag">AppSheet</span><span class="tag">Google Sheets</span><span class="tag">Google Apps Script</span><span class="tag">Data Analyst</span><span class="tag">Data validation</span></span>
+            </div>
+          </summary>
+          <div class="case-detail">
+            <p>Developed during the Matimco internship with AppSheet. Work included moving spreadsheet-based workflows into an app, migrating records, validating data, and documenting technical details.</p>
+            <p class="record-meta">Matimco / Internship<br>January–April 2026</p>
+          </div>
+        </details>
+        <details class="case-file reveal">
+          <summary>
+            <span class="case-no">CASE 03</span>
+            <div>
+              <h3 class="case-title">TILEFIT</h3>
+              <span class="case-subtitle">Full-stack capstone project with an augmented-reality feature for previewing tile designs.</span>
+              <span class="tag-list" aria-label="Project areas"><span class="tag">Full-stack development</span><span class="tag">AR tile visualization</span><span class="tag">Requirements analysis</span><span class="tag">Database modeling</span></span>
+            </div>
+          </summary>
+          <div class="case-detail">
+            <p>Contributed to full-stack development and data architecture, designed ERDs and DFDs, and translated requirements into structured tables, process flows, and system documentation. The AR feature lets users preview tile designs in their space before installation.</p>
+            <p class="record-meta">Capstone / Full-stack project<br>March–October 2025</p>
+          </div>
+        </details>
+        <details class="case-file reveal">
+          <summary>
+            <span class="case-no">CASE 04</span>
+            <div>
+              <h3 class="case-title">Business Process Documentation</h3>
+              <span class="case-subtitle">Process mapping and system documentation work.</span>
+              <span class="tag-list" aria-label="Methods"><span class="tag">DFD</span><span class="tag">SDLC</span><span class="tag">Documentation</span></span>
+            </div>
+          </summary>
+          <div class="case-detail">
+            <p>Mapped system requirements and information lifecycles into process documentation describing inputs, outputs, and process dependencies.</p>
+            <p class="record-meta">Project work / 2025</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="archive-section" id="skills" aria-labelledby="skills-title">
+      <div class="page-width">
+        <div class="section-heading reveal">
+          <p class="section-number">03 / Technical index</p>
+          <div>
+            <h2 id="skills-title">Tools, methods, and practice.</h2>
+            <p class="section-intro">An indexed view of the skills represented in the existing portfolio and project details.</p>
+          </div>
+        </div>
+        <div class="skill-index">
+          <div class="skill-row reveal">
+            <h3>Systems &amp; Development</h3>
+            <p>PHP · MySQL · MVC architecture · Full-stack development · Augmented reality (AR) · AppSheet</p>
+          </div>
+          <div class="skill-row reveal">
+            <h3>Data &amp; Databases</h3>
+            <p>SQL fundamentals · Database design · Database schema modeling · ERD · Data validation · Google Sheets</p>
+          </div>
+          <div class="skill-row reveal">
+            <h3>Analysis &amp; Documentation</h3>
+            <p>Requirements analysis · Process mapping · DFD · SDLC documentation · STLC · Root-cause analysis · Technical reporting</p>
+          </div>
+          <div class="skill-row reveal">
+            <h3>Support &amp; Collaboration</h3>
+            <p>Systems support · Technical troubleshooting · Stakeholder collaboration · Problem solving · Analytical thinking</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="archive-section" id="credentials" aria-labelledby="credentials-title">
+      <div class="page-width">
+        <div class="section-heading reveal">
+          <p class="section-number">04 / Credentials vault</p>
+          <div>
+            <h2 id="credentials-title">Credentials, kept on record.</h2>
+            <p class="section-intro">Professional certificates and their original files are listed here. Academic distinctions are recorded separately.</p>
+          </div>
+        </div>
+        <div id="credentialList" class="credential-list" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="archive-section" id="education" aria-labelledby="education-title">
+      <div class="page-width">
+        <div class="section-heading reveal">
+          <p class="section-number">05 / Academic record</p>
+          <div>
+            <h2 id="education-title">Education &amp; distinction.</h2>
+            <p class="section-intro">An academic milestone recorded separately from professional certifications.</p>
+          </div>
+        </div>
+        <article class="education-record reveal">
+          <p class="record-meta">Academic record<br>01</p>
+          <div>
+            <h3>Bachelor of Science in Information Technology</h3>
+            <p>Graduated May 2026</p>
+          </div>
+          <span class="honor-mark"><span aria-hidden="true">✦</span> Cum Laude</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="closing-record page-width" id="contact" aria-labelledby="contact-title">
+      <p class="section-number">06 / Closing record</p>
+      <h2 id="contact-title">END OF RECORD.<br>BEGIN THE CONVERSATION.</h2>
+      <div class="closing-bottom">
+        <div>
+          <a class="closing-email" href="mailto:alexisbolanio07@gmail.com">alexisbolanio07@gmail.com <span aria-hidden="true">↗</span></a>
+          <p class="closing-location">BOCAUE, BULACAN</p>
+          <p><a class="text-button" href="https://www.linkedin.com/in/alexis-bolanio-9538a2200/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a></p>
+          <button class="text-button" id="copyEmail" type="button" aria-describedby="copyStatus">Copy email address</button>
+          <span id="copyStatus" class="record-meta" aria-live="polite"></span>
+        </div>
+        <p class="closing-note">Have a project, opportunity, or process that needs a clearer solution? I’d be glad to hear from you.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="page-width site-footer">
+    <span>© <span id="year"></span> Alexis Bolanio · Personal archive</span>
+    <a class="back-to-top" href="#home">Back to top ↑</a>
+  </footer>
+
+  <dialog id="certificateDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-header">
+      <h2 id="dialogTitle">Certificate preview</h2>
+      <button class="dialog-close" id="closeDialog" type="button" aria-label="Close certificate preview">Close ×</button>
+    </div>
+    <div class="dialog-preview" id="dialogPreview"></div>
+  </dialog>
+
+  <script>
+    document.documentElement.classList.add('has-js');
+
+    // Keep certificate files beside this HTML file and use only their filenames here.
+    const certificates = [
+      {
+        title: 'IT Capstone Project Public Forum',
+        category: 'Certificate',
+        file: 'PUBLIC-FORUM-CERTIFICATE-preview.png',
+        originalFile: 'PUBLIC-FORUM-CERTIFICATE.pdf',
+        description: 'Certificate of participation in a public forum.'
+      },
+      {
+        title: 'Introduction to Cybersecurity',
+        category: 'Certificate',
+        file: 'Introduction_to_Cybersecurity_certificate_alexis-bolanio-preview.png',
+        originalFile: 'Introduction_to_Cybersecurity_certificate_alexis-bolanio.pdf',
+        description: 'Certificate for completing an introduction to cybersecurity.'
+      },
+      {
+        title: 'Data Analytics Level III',
+        category: 'Certificate',
+        file: 'DATA-ANALYTICS-ALEXIS-VENEGAS-BOLANIO-preview.png',
+        originalFile: 'DATA-ANALYTICS-  ALEXIS VENEGAS BOLANIO.pdf',
+        description: 'Certificate related to data analytics.'
+      }
+    ];
+    const credentialList = document.getElementById('credentialList');
+    const certificateDialog = document.getElementById('certificateDialog');
+    const dialogTitle = document.getElementById('dialogTitle');
+    const dialogPreview = document.getElementById('dialogPreview');
+    const allowedCertificateFile = /^[a-z0-9][a-z0-9._ -]*\.(pdf|png|jpe?g|webp|gif)$/i;
+
+    function appendText(parent, tagName, text, className) {
+      const element = document.createElement(tagName);
+      element.textContent = text;
+      if (className) element.className = className;
+      parent.appendChild(element);
+      return element;
+    }
+
+    function openCertificatePreview(certificate) {
+      const file = typeof certificate.file === 'string' ? certificate.file.trim() : '';
+      if (!allowedCertificateFile.test(file)) return;
+
+      const fileUrl = encodeURIComponent(file);
+      const extension = file.split('.').pop().toLowerCase();
+      const preview = extension === 'pdf'
+        ? document.createElement('iframe')
+        : document.createElement('img');
+
+      if (preview instanceof HTMLIFrameElement) {
+        preview.title = certificate.title || 'Certificate PDF preview';
+        preview.src = fileUrl;
+        preview.referrerPolicy = 'no-referrer';
+      } else {
+        preview.src = fileUrl;
+        preview.alt = certificate.title ? `Preview of ${certificate.title}` : 'Certificate image preview';
+      }
+
+      dialogTitle.textContent = certificate.title || 'Certificate preview';
+      dialogPreview.replaceChildren(preview);
+      certificateDialog.showModal();
+    }
+
+    function renderCertificates() {
+      credentialList.replaceChildren();
+      const entries = certificates.filter((certificate) => certificate && typeof certificate === 'object');
+
+      if (entries.length === 0) {
+        const emptyState = document.createElement('div');
+        emptyState.className = 'vault-empty reveal';
+        appendText(emptyState, 'strong', 'No professional certificates on file.');
+        appendText(emptyState, 'p', 'When you have a certificate to share, add its details to the certificates list in this file and place the PDF or image beside this HTML file.');
+        credentialList.appendChild(emptyState);
+        return;
+      }
+
+      entries.forEach((certificate) => {
+        const entry = document.createElement('article');
+        entry.className = 'credential-entry reveal';
+        const category = typeof certificate.category === 'string' ? certificate.category.trim() : '';
+        const title = typeof certificate.title === 'string' ? certificate.title.trim() : '';
+        const issuer = typeof certificate.issuer === 'string' ? certificate.issuer.trim() : '';
+        const date = typeof certificate.date === 'string' ? certificate.date.trim() : '';
+        const description = typeof certificate.description === 'string' ? certificate.description.trim() : '';
+        const file = typeof certificate.file === 'string' ? certificate.file.trim() : '';
+        const originalFile = typeof certificate.originalFile === 'string' ? certificate.originalFile.trim() : '';
+
+        if (category) appendText(entry, 'p', category.toUpperCase(), 'record-meta');
+        if (title) appendText(entry, 'h3', title);
+        if (issuer) appendText(entry, 'p', `Issuer: ${issuer}`);
+        if (date) appendText(entry, 'p', `Date: ${date}`);
+        if (description) appendText(entry, 'p', description);
+
+        if (file && allowedCertificateFile.test(file)) {
+          const thumbnail = document.createElement('img');
+          thumbnail.className = 'credential-preview';
+          thumbnail.src = encodeURIComponent(file);
+          thumbnail.alt = title ? `Preview of ${title}` : 'Certificate preview';
+          thumbnail.loading = 'lazy';
+          entry.appendChild(thumbnail);
+
+          const actions = document.createElement('div');
+          actions.className = 'credential-actions';
+          const previewButton = document.createElement('button');
+          previewButton.className = 'text-button';
+          previewButton.type = 'button';
+          previewButton.textContent = 'Preview certificate';
+          previewButton.addEventListener('click', () => openCertificatePreview(certificate));
+          actions.appendChild(previewButton);
+
+          const openLink = document.createElement('a');
+          openLink.className = 'text-button';
+          const documentFile = originalFile && allowedCertificateFile.test(originalFile) ? originalFile : file;
+          openLink.href = encodeURIComponent(documentFile);
+          openLink.target = '_blank';
+          openLink.rel = 'noopener noreferrer';
+          openLink.textContent = originalFile ? 'Open original PDF' : 'Open original file';
+          actions.appendChild(openLink);
+          entry.appendChild(actions);
+        } else if (file) {
+          appendText(entry, 'p', 'Preview unavailable. Use a PDF or supported image filename beside this HTML file.', 'record-meta');
+        }
+        credentialList.appendChild(entry);
+      });
+
+      observeReveals(credentialList.querySelectorAll('.reveal'));
+    }
+
+    document.getElementById('closeDialog').addEventListener('click', () => certificateDialog.close());
+    certificateDialog.addEventListener('click', (event) => {
+      if (event.target === certificateDialog) certificateDialog.close();
+    });
+    certificateDialog.addEventListener('close', () => dialogPreview.replaceChildren());
+    renderCertificates();
+
+    document.getElementById('year').textContent = String(new Date().getFullYear());
+
+    const copyStatus = document.getElementById('copyStatus');
+    document.getElementById('copyEmail').addEventListener('click', async () => {
+      const email = 'alexisbolanio07@gmail.com';
+      try {
+        await navigator.clipboard.writeText(email);
+        copyStatus.textContent = ' Email copied to clipboard.';
+      } catch {
+        const field = document.createElement('textarea');
+        field.value = email;
+        field.setAttribute('readonly', '');
+        field.style.position = 'fixed';
+        field.style.opacity = '0';
+        document.body.appendChild(field);
+        field.select();
+        const copied = document.execCommand('copy');
+        field.remove();
+        copyStatus.textContent = copied ? ' Email copied to clipboard.' : ' Copy failed — use the email link.';
+      }
+    });
+
+    const progressBar = document.getElementById('scrollProgress');
+    let progressFrame = 0;
+    function updateProgress() {
+      if (progressFrame) return;
+      progressFrame = requestAnimationFrame(() => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+        progressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+        progressFrame = 0;
+      });
+    }
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+
+    const indexLinks = document.querySelectorAll('.archive-index .index-link');
+    const indexedSections = Array.from(indexLinks, (link) => document.querySelector(link.getAttribute('href')));
+    if ('IntersectionObserver' in window) {
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          indexLinks.forEach((link) => {
+            if (link.hash === `#${entry.target.id}`) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          });
+        });
+      }, { rootMargin: '-35% 0px -55% 0px' });
+      indexedSections.filter(Boolean).forEach((section) => sectionObserver.observe(section));
+    }
+
+    function observeReveals(elements = document.querySelectorAll('.reveal')) {
+      if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        elements.forEach((element) => element.classList.add('is-visible'));
+        return;
+      }
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12 });
+      elements.forEach((element) => revealObserver.observe(element));
+    }
+    observeReveals();
+  </script>
+</body>
+</html>
